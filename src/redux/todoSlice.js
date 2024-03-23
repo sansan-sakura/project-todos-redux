@@ -13,10 +13,7 @@ const todoSlice = createSlice({
         completed: false,
         due: action.payload.due,
       };
-      const newTodos = state.push(newTodo);
-      const localtodos = localStorage.getItem("todo");
-      console.log(JSON.parse(localStorage.getItem("todo")), "local");
-      localStorage.setItem("todo", JSON.stringify(newTodos));
+      state.push(newTodo);
     },
     toggleComplete: (state, action) => {
       const index = state.findIndex((todo) => todo.id === action.payload.id);
