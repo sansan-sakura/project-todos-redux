@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [];
 
@@ -11,8 +11,12 @@ const todoSlice = createSlice({
         id: action.payload.id,
         title: action.payload.title,
         completed: false,
+        due: action.payload.due,
       };
-      state.push(newTodo);
+      const newTodos = state.push(newTodo);
+      const localtodos = localStorage.getItem("todo");
+      console.log(JSON.parse(localStorage.getItem("todo")), "local");
+      localStorage.setItem("todo", JSON.stringify(newTodos));
     },
     toggleComplete: (state, action) => {
       const index = state.findIndex((todo) => todo.id === action.payload.id);
@@ -24,6 +28,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const { addTodo } = todoSlice.actions;
+export const { addTodo, deleteTodo, toggleComplete } = todoSlice.actions;
 
 export default todoSlice.reducer;
